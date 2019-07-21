@@ -1,0 +1,16 @@
+{
+  "name": "wd-gdocs-addons",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clasp": "./node_modules/.bin/clasp",
+    "clasp:login": "npm run clasp login",
+    "deploy": "clasp push"
+  },
+  "author": "Adam Dobrawy",
+  "license": "ISC",
+  "devDependencies": {
+    "@google/clasp": "^2.2.1"
+  }
+}

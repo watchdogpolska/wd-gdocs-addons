@@ -1,0 +1,10 @@
+{
+  "timeZone": "Europe/Warsaw",
+  "dependencies": {
+    "enabledAdvancedServices": []
+  },
+  "urlFetchWhitelist": [
+    "https://fedrowanie.siecobywatelska.pl/api/institutions/"
+  ],
+  "exceptionLogging": "STACKDRIVER"
+}
