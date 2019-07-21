@@ -6,7 +6,8 @@
   "scripts": {
     "clasp": "./node_modules/.bin/clasp",
     "clasp:login": "npm run clasp login",
-    "deploy": "clasp push"
+    "deploy": "clasp push",
+    "release": "clasp version"
   },
   "author": "Adam Dobrawy",
   "license": "ISC",
