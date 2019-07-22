@@ -7,7 +7,7 @@
     "clasp": "./node_modules/.bin/clasp",
     "clasp:login": "npm run clasp login",
     "deploy": "clasp push",
-    "release": "clasp version"
+    "release": "clasp push && clasp version"
   },
   "author": "Adam Dobrawy",
   "license": "ISC",

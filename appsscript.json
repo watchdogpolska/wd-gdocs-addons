@@ -6,6 +6,5 @@
   "urlFetchWhitelist": [
     "https://fedrowanie.siecobywatelska.pl/api/institutions/"
   ],
-  "api_console_project_id": "613108487000",
   "exceptionLogging": "STACKDRIVER"
 }
