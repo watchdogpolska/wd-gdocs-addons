@@ -1,0 +1,21 @@
+{
+  "name": "gsuite-regon-validator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adam Dobrawy",
+  "license": "MIT",
+  "dependencies": {
+    "@hyperone/regon": "https://github.com/hyperonecom/regon/archive/master.tar.gz",
+    "koa": "^2.8.1",
+    "koa-body": "^4.1.1",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^7.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  }
+}

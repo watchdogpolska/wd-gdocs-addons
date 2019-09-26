@@ -6,7 +6,7 @@ A set of scripts that make life easier and work with the data of employees & vol
 
 ## Setup
 
-```
+```bash
 npm install
 npm run clasp:login
 npm run deploy
@@ -17,15 +17,17 @@ npm run deploy
 ### FederNameByRegon
 
 Values:
-```
+
+```excel
 =FederNameByRegon('000678239');
 ```
 
 Output:
 
-```
+```excel
 Bałtycka Galeria Sztuki Współczesnej w Słupsku
 ```
+
 ## Reference
 
 - [Clasp - GitHub](https://github.com/google/clasp)
