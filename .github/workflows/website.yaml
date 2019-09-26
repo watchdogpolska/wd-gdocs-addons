@@ -16,7 +16,7 @@ jobs:
         cd app
         npm install
         cd ..
-    - uses: ./github/actions/hyperone-website-action
+    - uses: ./.github/actions/hyperone-website-action
       with:
         website_id: "5d8d3f2393f2cc1f9a4015f3"
         destination: "./app"
