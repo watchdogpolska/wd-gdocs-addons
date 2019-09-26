@@ -11,15 +11,16 @@ const router = new Router();
 
 router.use((ctx, next) => {
     const token = ctx.query['auth-token'] || ctx.request.headers['x-auth-token'];
-    if(token && config.TOKENS.indexOf(token) >= 0){
+    if (token && config.TOKENS.indexOf(token) >= 0) {
         return next();
     }
     return ctx.throw(401, 'Unauthorized');
 });
 
 router.get('/', async ctx => {
-    ctx.body = {...router.stack
-        .map(route => ({[route.path]: route.methods}))
+    ctx.body = {
+        ...router.stack
+            .map(route => ({ [route.path]: route.methods }))
     };
 });
 router.get('/nip/:id', async (ctx) => {
@@ -32,11 +33,9 @@ router.get('/regon/:id', async (ctx) => {
     ctx.body = await client.report(entity.regon14, entity.full_report);
 });
 
-app.use(logger())
-
-app.use(koaBody());
-
 app
+    .use(logger())
+    .use(koaBody())
     .use(router.routes())
     .use(router.allowedMethods());
 
