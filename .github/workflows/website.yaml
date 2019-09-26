@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - name: Install
+      run: |
+        cd app
+        npm install
+        cd ..
+    - uses: ./github/actions/hyperone-website-action
+      with:
+        website_id: "5d8d3f2393f2cc1f9a4015f3"
+        destination: "./app"
+        source: "./app"

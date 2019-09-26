@@ -1,0 +1,27 @@
+name: 'HyperOne Website Deploy'
+description: 'Deploy website to HyperOne Website'
+author: 'ad-m'
+branding:
+  icon: upload-cloud
+  color: green
+inputs:
+  token:
+    description: 'Token with access to website to restart'
+    required: true
+  website_id:
+    description: 'Destination Website ID'
+    required: true
+  website_region:
+    description: 'Destination Website ID'
+    required: false
+    default: 'pl-waw-1'
+  destination:
+    description: 'Destination files path'
+    required: true
+  source:
+    description: 'Source file path'
+    required: true
+  
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
