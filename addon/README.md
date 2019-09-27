@@ -10,22 +10,6 @@ npm run clasp:login
 npm run deploy
 ```
 
-## Examples
-
-### FederNameByRegon
-
-Values:
-
-```excel
-=FederNameByRegon('000678239');
-```
-
-Output:
-
-```excel
-Bałtycka Galeria Sztuki Współczesnej w Słupsku
-```
-
 ## Reference
 
 - [Clasp - GitHub](https://github.com/google/clasp)

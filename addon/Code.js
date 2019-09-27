@@ -1,114 +1,103 @@
 /**
- * Runs when the add-on is installed.
- */
-function onInstall() {
-  onOpen();
-}
-
-/**
- * Runs when the document is opened, creating the add-on's menu. Custom function
- * add-ons need at least one menu item, since the add-on is only enabled in the
- * current spreadsheet when a function is run.
- */
-function onOpen() {
-  SpreadsheetApp.getUi().createAddonMenu()
-      .addItem('Use in this spreadsheet', 'use')
-      .addToUi();
-}
-
-
-/**
- * Enables the add-on on for the current spreadsheet (simply by running) and
- * shows a popup informing the user of the new functions that are available.
- */
-function use() {
-  var title = 'Watchdog Custom Functions';
-  var message = 'The functions FederNameByRegon are now available in ' +
-      'this spreadsheet. More information is available in the function help ' +
-      'box that appears when you start using them in a forumula.';
-  var ui = SpreadsheetApp.getUi();
-  ui.alert(title, message, ui.ButtonSet.OK);
-}
-
-/**
- * @customFunction
- * Fetch name of institution from feder by regon.
+ * Fetch name of institution from fedrowanie by regon.
  *
- * @param {Array} arguments Array of REGON numbers
- * @return string
+ * @param {string} input The value or range of cells to multiply.
+ * @return The input multiplied by 2.
+ * @customfunction
  */
-function FederNameByRegon(arguments) {
-  var args = toArray(arguments); // eslint-disable-line prefer-rest-params
-  return multimap(args, function (regon) {
-    var url = "https://fedrowanie.siecobywatelska.pl/api/institutions/?regon=" + encodeURIComponent(regon);
-    var response = UrlFetchApp.fetch(url);
-    var resp = JSON.parse(response.getContentText());
-    if(resp.count === 0){
-      return "Nie znaleziono";
-    }else if(resp.count > 1){
-      return "Wieloznaczny REGON";
-    }else{
-      return resp.results[0].name;
-    }
-  });
 
-
-}
-
+var ALLOWED_PROPS = [
+  'name',
+  'nip',
+  'regon14',
+  'regon9',
+  'regon',
+  'postal_code',
+  'city',
+  'voivodeship',
+  'community',
+  'county',
+  'street',
+  'house_no',
+  'flat_no',
+  'teryt',
+];
 
 /**
- * Applies a function to a set of arguments, looping over arrays in those
- * arguments. Similar to Array.map, except that it can map the function across
- * multiple arrays, passing forward non-array values.
- * @param {Array} args The arguments to map against.
- * @param {Function} func The function to apply.
- * @return {Array} The results of the mapping.
+ * Fetch property about institution from Fedrowanie by REGON.
+ *
+ * @param {string} input REGON
+ * @param {string} input Property name eg. name, REGON
+ * @return Property value
+ * @customfunction
  */
-function multimap(args, func) {
-  // Determine the length of the arrays.
-  var lengths = args.map(function (arg) {
-    if (arg instanceof Array) {
-      return arg.length;
-    } else {
-      return 0;
-    }
-  });
-  var max = Math.max.apply(null, lengths);
 
-  // If there aren't any arrays, just call the function.
-  if (max == 0) {
-    return func(...args);
+function FederByRegon(input,property) {
+  if(!property){
+    property = 'name';
+  }
+  var url = "https://fedrowanie.siecobywatelska.pl/api/institutions/?regon=" + encodeURIComponent(input);
+  var response = UrlFetchApp.fetch(url);
+  var resp = JSON.parse(response.getContentText());
+  if (resp.count === 0) {
+    return "Nie znaleziono";
+  } else if (resp.count > 1) {
+    return "Wieloznaczny REGON";
+  } else {
+    return resp.results[0][property];
+  }
+}
+
+function lookupBir(field, input, property) {
+  if (!input || input.length === 0) {
+    return "Parametr pierwszy wymagany";
+  };
+  if (!property) {
+    property = 'name';
+  } else if(ALLOWED_PROPS.indexOf(property) < 0 ) {
+    return "Niedopuszczalna wartość dla drugiego parametru. Dopuszczalne to :" + ALLOWED_PROPS.join(", ");
   }
 
-  // Ensure all the arrays are the same length.
-  // Arrays of length 1 are exempted, since they are assumed to be rows/columns
-  // that should apply to each row/column in the other sets.
-  lengths.forEach(function (length) {
-    if (length != max && length > 1) {
-      throw new Error('All input ranges must be the same size: ' + max);
-    }
-  });
+  if (!input || input.length === 0) {
+    return "Parametr drugi wymagany";
+  };
 
-  // Recursively apply the map function to each element in the arrays.
-  var result = [];
-  for (var i = 0; i < max; i++) {
-    var params = args.map(function (arg) {
-      if (arg instanceof Array) {
-        return arg.length == 1 ? arg[0] : arg[i];
-      } else {
-        return arg;
-      }
-    });
-    result.push(multimap(params, func));
-  }
-  return result;
+  var url = 'https://' + API_HOST + '/' + field + '/' + encodeURIComponent(input) + '?auth-token=' + encodeURIComponent(TOKEN);
+  var response = UrlFetchApp.fetch(url);
+  var resp = JSON.parse(response.getContentText());
+  if (resp.count === 0) {
+    return "Nie znaleziono " + field + ": " + input;
+  } else if (resp.count > 1) {
+    return "Wieloznaczna wartosc " + field + ": " + input;
+  } else {
+    return resp[property];
+  };
 }
 
 /**
- * Convert the array-like arguments object into a real array.
- * @param {Arguments} args The arguments object to convert.
- * @return {Array} The equivalent array.
+ * Fetch property of official institution data by REGON.
+ * Data fetched from BIR API (GUS)
+ *
+ * @param {string} input REGON
+ * @param {string} input Property name eg. name, REGON
+ * @return Property value
+ * @customfunction
  */
-function toArray(args) {
-  return Array.prototype.slice.call(args);
+
+function GovDataByRegon(input, property) {
+  return lookupBir('regon', input, property)
 }
+
+/**
+ * Fetch property of official institution data by REGON.
+ * Data fetched from BIR API (GUS)
+ *
+ * @param {string} input REGON
+ * @param {string} input Property name eg. name, REGON
+ * @return Property value
+ */
+
+function GovDataByNip(input, property) {
+  return lookupBir('nip', input, property)
+}
+
