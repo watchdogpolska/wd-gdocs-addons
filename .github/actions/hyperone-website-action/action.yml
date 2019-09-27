@@ -1,5 +1,5 @@
 name: 'HyperOne Website Deploy'
-description: 'Deploy website to HyperOne Website'
+description: 'Deploy content to HyperOne Website'
 author: 'ad-m'
 branding:
   icon: upload-cloud
@@ -15,6 +15,9 @@ inputs:
     description: 'Destination Website ID'
     required: false
     default: 'pl-waw-1'
+  website_password:
+    description: 'Password to access Website'
+    required: true
   destination:
     description: 'Destination files path'
     required: true

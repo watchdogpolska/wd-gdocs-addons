@@ -43,7 +43,7 @@ app
 
 
 const main = async () => {
-    await client.login(process.env.GUS_API_KEY);
+    await client.login(config.GUS_API_KEY);
     await new Promise(resolve => app.listen(process.env.PORT || 8080, function () {
         console.log('listening on', this.address());
         return resolve();

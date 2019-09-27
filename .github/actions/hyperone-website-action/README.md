@@ -1,6 +1,6 @@
-# GitHub Action for GitHub Push
+# Website Deploy Action
 
-The GitHub Actions for pushing to GitHub repository local changes authorizing using GitHub token.
+Deploy content to HyperOne Website authorizing using Website password and HyperOne Service Account.
 
 ## Usage
 
@@ -17,9 +17,13 @@ jobs:
 ...
     - run: |
         ...
-    - uses: ad-m/github-push-action@master
+    - uses: ./.github/actions/hyperone-website-action
       with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        token: "${{ secrets.HYPERONE_ACCESS_TOKEN_SECRET }}"
+        website_id: "5d8d3f2393f2cc1f9a4015f3"
+        website_password: "${{ secrets.WEBSITE_PASSWORD }}"
+        destination: "./app/"
+        source: "./app/"
 ```
 
 ## License
