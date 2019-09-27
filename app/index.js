@@ -27,11 +27,17 @@ router.get('/', async ctx => {
 });
 router.get('/nip/:id', async (ctx) => {
     const entity = await client.search_nip(ctx.params.id);
+    if(!entity){
+        ctx.throw(404, 'Not found entity');
+    }
     ctx.body = await client.report(entity.regon14, entity.full_report);
 });
 
 router.get('/regon/:id', async (ctx) => {
     const entity = await client.search_regon(ctx.params.id);
+    if(!entity){
+        ctx.throw(404, 'Not found entity');
+    }
     ctx.body = await client.report(entity.regon14, entity.full_report);
 });
 
