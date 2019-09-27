@@ -19,6 +19,18 @@ router.use((ctx, next) => {
     return ctx.throw(401, 'Unauthorized');
 });
 
+router.use((ctx, next) => {
+    try{
+        return await next();
+    }catch(err) {
+        if(err.code == '4'){
+            ctx.throw(404, err.message);
+        }
+        throw err;
+    }
+});
+
+
 router.get('/', async ctx => {
     ctx.body = {
         ...router.stack

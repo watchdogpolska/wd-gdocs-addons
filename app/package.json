@@ -9,7 +9,7 @@
   "author": "Adam Dobrawy",
   "license": "MIT",
   "dependencies": {
-    "@hyperone/regon": "https://github.com/hyperonecom/regon/archive/master.tar.gz",
+    "@hyperone/regon": "https://github.com/hyperonecom/regon/archive/modernize.tar.gz",
     "koa": "^2.8.1",
     "koa-body": "^4.1.1",
     "koa-logger": "^3.2.1",
