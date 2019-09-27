@@ -52,7 +52,7 @@ Output:
 
 * ```GovDataByNip``` function is also available. The signature is identical, except first argument is NIP.
 
-### FederNameByRegon
+### FederByRegon
 
 Arguments:
 
