@@ -19,7 +19,7 @@ router.use((ctx, next) => {
     return ctx.throw(401, 'Unauthorized');
 });
 
-router.use((ctx, next) => {
+router.use(async (ctx, next) => {
     try{
         return await next();
     }catch(err) {
