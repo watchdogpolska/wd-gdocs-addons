@@ -4,6 +4,9 @@
 
 A set of scripts that make life easier and work with the data of employees & volunteer & members of the Citizens Network Watchdog Poland
 
+![Demo](http://cdn.files.jawne.info.pl/private_html/2019_09_see5Au9uik4IechietuveeNge6moong9aevaegahcie7ooz6du/zalacznik.gif
+)
+
 Repository consists:
 
 * ```addon``` - GSuite extensions
