@@ -23,6 +23,7 @@ router.use(async (ctx, next) => {
     try{
         return await next();
     }catch(err) {
+        console.log(error);
         if(err.code == '4'){
             ctx.throw(404, err.message);
         }
@@ -39,6 +40,7 @@ router.get('/', async ctx => {
 });
 router.get('/nip/:id', async (ctx) => {
     const entity = await client.search_nip(ctx.params.id);
+    console.log({entity});
     if(!entity){
         ctx.throw(404, 'Not found entity');
     }
@@ -47,6 +49,7 @@ router.get('/nip/:id', async (ctx) => {
 
 router.get('/regon/:id', async (ctx) => {
     const entity = await client.search_regon(ctx.params.id);
+    console.log({entity});
     if(!entity){
         ctx.throw(404, 'Not found entity');
     }
