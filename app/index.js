@@ -23,7 +23,7 @@ router.use(async (ctx, next) => {
     try{
         return await next();
     }catch(err) {
-        console.log(error);
+        console.log(err);
         if(err.code == '4'){
             ctx.throw(404, err.message);
         }
