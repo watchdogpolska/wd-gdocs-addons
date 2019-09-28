@@ -28,12 +28,15 @@ router.use((ctx, next) => {
 
 router.use(async (ctx, next) => {
     if (cache.has(ctx.path)) {
-        ctx.response = cache.get(ctx.path);
+        Object.assign(ctx.response, cache.get(ctx.path));
     } else {
         try {
             return await next();
         } finally {
-            cache.set(ctx.path, ctx.response);
+            cache.set(ctx.path, {
+                status: ctx.response.status,
+                body: ctx.response.body
+            });
         }
     }
 });
