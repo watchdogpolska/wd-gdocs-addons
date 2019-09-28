@@ -33,9 +33,13 @@ var ALLOWED_PROPS = [
  */
 
 function FederByRegon(input,property) {
+  if (!input || input.length === 0) {
+    return "Parametr pierwszy wymagany";
+  };
   if(!property){
     property = 'name';
   }
+
   var url = "https://fedrowanie.siecobywatelska.pl/api/institutions/?regon=" + encodeURIComponent(input);
   var response = UrlFetchApp.fetch(url);
   var resp = JSON.parse(response.getContentText());
@@ -57,7 +61,6 @@ function lookupBir(field, input, property) {
   } else if(ALLOWED_PROPS.indexOf(property) < 0 ) {
     return "Niedopuszczalna wartość dla drugiego parametru. Dopuszczalne to :" + ALLOWED_PROPS.join(", ");
   }
-
   if (!input || input.length === 0) {
     return "Parametr drugi wymagany";
   };

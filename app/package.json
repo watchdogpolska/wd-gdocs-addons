@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
   },
   "author": "Adam Dobrawy",
   "license": "MIT",
@@ -13,9 +14,12 @@
     "koa": "^2.8.1",
     "koa-body": "^4.1.1",
     "koa-logger": "^3.2.1",
-    "koa-router": "^7.4.0"
+    "koa-router": "^7.4.0",
+    "lru-cache": "^5.1.1"
   },
   "devDependencies": {
+    "@hyperone/eslint-config": "^2.0.0",
+    "eslint": "^6.4.0",
     "nodemon": "^1.19.2"
   }
 }
