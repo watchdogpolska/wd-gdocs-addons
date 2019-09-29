@@ -85,8 +85,15 @@ app
 
 const login = async () => {
     console.log('GUS login');
-    await client.login(config.GUS_API_KEY);
-    setTimeout(login, 5 * 60 * 1000);
+    try {
+        await client.login(config.GUS_API_KEY);
+        // "Zakończenie sesji odbywa się po wywołaniu metody Wyloguj lub po upływie 60 minut."
+        // (Instrukcja techniczna usługi BIR1 w wersji 1.1, p. 6)
+        setTimeout(login, 45 * 60 * 1000);
+    } catch (err) {
+        console.log('Failed logging', err);
+        setTimeout(login, 15 * 60 * 1000);
+    }
 };
 
 const main = async () => {
