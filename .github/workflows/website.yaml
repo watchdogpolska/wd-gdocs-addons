@@ -15,9 +15,6 @@ jobs:
       run: |
         cd app
         npm install
-        sed -e "s/%TOKEN%/${{ secrets.WD_TOKEN }}/g" \
-            -e "s/%GUS_API_KEY%/${{ secrets.GUS_API_KEY }}/g" \
-            config.template.js > config.js;
         cd ..
     - uses: ./.github/actions/hyperone-website-action
       with:
