@@ -5,6 +5,7 @@
   },
   "urlFetchWhitelist": [
     "https://fedrowanie.siecobywatelska.pl/api/institutions/",
+    "https://fedrowanie.siecobywatelska.pl/api/teryt/",
     "https://raw.githubusercontent.com/zixia/gast/master/src/gas-tap-lib.js",
     "https://5d8d3f2393f2cc1f9a4015f3.website.pl-waw-1.hyperone.cloud/regon/",
     "https://5d8d3f2393f2cc1f9a4015f3.website.pl-waw-1.hyperone.cloud/nip/"

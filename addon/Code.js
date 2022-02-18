@@ -82,7 +82,7 @@ function lookupBir(field, input, property) {
  * Data fetched from BIR API (GUS)
  *
  * @param {string} input REGON
- * @param {string} input Property name eg. name, REGON
+ * @param {string} property Property name eg. name, REGON
  * @return Property value
  * @customfunction
  */
@@ -96,7 +96,7 @@ function GovDataByRegon(input, property) {
  * Data fetched from BIR API (GUS)
  *
  * @param {string} input REGON
- * @param {string} input Property name eg. name, REGON
+ * @param {string} property Property name eg. name, REGON
  * @return Property value
  */
 
@@ -104,3 +104,28 @@ function GovDataByNip(input, property) {
   return lookupBir('nip', input, property)
 }
 
+/**
+ * Fetch property of JST by TERC.
+ * Data fetched from Fedrowanie.
+ *
+ * @param {string} input REGON
+ * @return Property value
+ * @customfunction
+ */
+function FederByTerc(input) {
+  if (!input || input.length === 0) {
+    return "Parametr pierwszy wymagany";
+  };
+  if (!input || input.length === 0) {
+    return "Parametr drugi wymagany";
+  };
+
+  var url = "https://fedrowanie.siecobywatelska.pl/api/teryt/" + encodeURIComponent(input) + "/";
+  var response = UrlFetchApp.fetch(url);
+  var resp = JSON.parse(response.getContentText());
+  if (!!resp.name) {
+    return resp.name;
+  } else {
+    return "--";
+  };
+}
